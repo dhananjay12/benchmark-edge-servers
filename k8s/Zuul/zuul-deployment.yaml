@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: zuul
+  name: zuul
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: zuul
+      component: zuul
+  template:
+    metadata:
+      labels:
+        run: zuul
+        component: zuul
+    spec:
+      containers:
+      - env:
+        - name: JAVA_OPTS
+          value: -Djava.security.egd=file:/dev/./urandom
+        - name: SPRING_PROFILES_ACTIVE
+          value: k8
+        image: dhananjay12/poc-benchmark-zuul-server:latest
+        name: poc-benchmark-zuul-server
+        resources:
+          requests:
+            cpu: 1
+            memory: "1Gi"
+          limits:
+            cpu: 2
+            memory: "1Gi"
+        ports:
+        - containerPort: 7777
+          protocol: TCP

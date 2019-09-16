@@ -1,0 +1,15 @@
+server:
+  port: 7777
+
+#zuul:
+#  routes:
+#    test:
+#      path: /**
+#      url: http://localhost:8100
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+

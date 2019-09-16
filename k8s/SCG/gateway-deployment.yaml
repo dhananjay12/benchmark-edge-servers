@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: gateway
+  name: gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: gateway
+      component: gateway
+  template:
+    metadata:
+      labels:
+        run: gateway
+        component: gateway
+    spec:
+      containers:
+      - env:
+        - name: JAVA_OPTS
+          value: -Djava.security.egd=file:/dev/./urandom
+        - name: SPRING_PROFILES_ACTIVE
+          value: k8
+        image: dhananjay12/poc-benchmark-gateway-server:latest
+        name: poc-benchmark-gateway-server
+        resources:
+          requests:
+            cpu: 1
+            memory: "1Gi"
+          limits:
+            cpu: 2
+            memory: "1Gi"
+        ports:
+        - containerPort: 8888
+          protocol: TCP

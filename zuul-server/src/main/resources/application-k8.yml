@@ -1,0 +1,5 @@
+zuul:
+  routes:
+    test:
+      path: /**
+      url: http://test-service:8100

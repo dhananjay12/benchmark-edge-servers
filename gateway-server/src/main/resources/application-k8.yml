@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: test-service
+          uri: http://test-service:8100
+          predicates:
+            - Path=/**
+

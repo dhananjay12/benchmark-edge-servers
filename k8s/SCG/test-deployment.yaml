@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: test-service
+  name: test-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: test-service
+      component: test-service
+  template:
+    metadata:
+      labels:
+        run: test-service
+        component: test-service
+    spec:
+      containers:
+      - env:
+        - name: JAVA_OPTS
+          value: -Djava.security.egd=file:/dev/./urandom
+        image: dhananjay12/poc-benchmark-test-service:latest
+        name: poc-benchmark-test-service
+        resources:
+          requests:
+            cpu: 1
+            memory: "1Gi"
+          limits:
+            cpu: 2
+            memory: "1Gi"
+        ports:
+        - containerPort: 8100
+          protocol: TCP
